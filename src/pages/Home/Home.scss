@@ -1,0 +1,29 @@
+@use "../../scss" as *;
+.home-wapper {
+  margin: 10px 10px;
+  .user-action-chat {
+    position: fixed;
+    width: 95vw;
+    @include flex(row, center, space-between);
+    display: flex;
+    .left,
+    .right {
+      @include flex(row, center, center);
+      p {
+        font-size: 20px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+.sideBar-wapper {
+  margin: 20px 10px;
+  height: 100%;
+  @include flex(column, center, space-between);
+  .user-info {
+    @include flex(row, center, center);
+    p {
+      margin-left: 5px;
+    }
+  }
+}
