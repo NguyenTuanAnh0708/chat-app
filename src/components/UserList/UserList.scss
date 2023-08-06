@@ -1,0 +1,25 @@
+@use "../../scss/" as *;
+.user-info {
+  @include flex(row, center, center);
+  gap: 15px;
+}
+.user-list {
+  height: 70vh;
+  overflow-y: scroll;
+}
+.user-list h3 {
+  position: sticky;
+}
+.user-list li {
+  margin: 0;
+  padding: 3px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(77, 74, 74, 0.132);
+  }
+}
+
+.user-list * {
+  margin-bottom: 8px;
+}

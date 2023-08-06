@@ -1,0 +1,10 @@
+@use "../../scss/" as *;
+.PopupGroup {
+  min-width: 40vw;
+  padding: 5px;
+  @include flex(column, center, center);
+  gap: 25px;
+  @include tablet {
+    padding: 20px;
+  }
+}

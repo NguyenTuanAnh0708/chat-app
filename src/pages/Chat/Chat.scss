@@ -1,0 +1,27 @@
+@use "../../scss/" as *;
+.chat-page {
+  height: 100vh;
+  @include flex(column, unset, space-between);
+  &__header {
+    background-color: $white;
+    height: 80px;
+    @include flex(row, center, space-between);
+    padding: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+}
+.chat-messages-space {
+  flex: 1;
+}
+.chat-action {
+  height: 60px;
+  @include flex(row, center, center);
+  input {
+    width: 60%;
+    outline: none;
+    border: none;
+    background-color: rgba(128, 128, 128, 0.2);
+    padding: 10px;
+    border-radius: 20px;
+  }
+}

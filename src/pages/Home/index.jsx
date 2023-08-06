@@ -1,9 +1,43 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import CircleButton from "../../components/CircleButton";
-import { Tooltip, Drawer, Avatar, Button } from "@mui/material";
+import {
+  Tooltip,
+  Drawer,
+  Avatar,
+  Button,
+  TextField,
+  InputBase,
+  IconButton,
+  Paper,
+} from "@mui/material";
 import "./Home.scss";
+import GroupItem from "../../components/GroupItem";
+import { PopupAddGroup } from "../../components/Popup";
+import UserItem from "../../components/UserList/UserItem";
+import UserList from "../../components/UserList";
+import { auth, db } from "../../firebase/config";
+import { signOut } from "firebase/auth";
+import { AuthConText } from "../../Context/AuthProvider";
+import useFireStore from "../../hooks/useFireStore";
+import { AppContext } from "../../Context/AppProvider";
 const Home = () => {
+  const {
+    user,
+    user: { displayName, photoURL },
+  } = useContext(AuthConText);
+  /**
+   * room
+   * {
+   * name:"abc"
+   * decription:"abc"
+   * members:[uid1,uid2,...]
+   * }
+   */
+  const { rooms } = useContext(AppContext);
   const [openMenu, setOpenMenu] = useState(false);
+  const handelLogOut = () => {
+    signOut(auth);
+  };
   return (
     <div className="home-wapper">
       <div className="user-action-chat">
@@ -21,14 +55,16 @@ const Home = () => {
             onClose={() => setOpenMenu(false)}
           >
             <div className="sideBar-wapper">
-              <div className="user-info">
-                <Avatar
-                  alt="user-name"
-                  src="https://images.unsplash.com/photo-1682685797795-5640f369a70a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80"
-                />
-                <p className="user-info-name">Nguyen Tuan Anh</p>
+              <div className="wapper-user">
+                <UserItem displayName={displayName} avatar={photoURL} />
+
+                <UserList />
               </div>
-              <Button variant="contained" color="warning">
+              <Button
+                onClick={handelLogOut}
+                variant="contained"
+                color="warning"
+              >
                 Log out
               </Button>
             </div>
@@ -36,15 +72,39 @@ const Home = () => {
           <p>Group chat</p>
         </div>
         <div className="right flex">
-          <Tooltip title="Create group chat" arrow>
-            <CircleButton>
-              <i class="bx bx-plus"></i>
-            </CircleButton>
-          </Tooltip>
+          <PopupAddGroup />
         </div>
       </div>
-      <div className="seach-group"></div>
-      <div className="group-wapper"></div>
+      <div className="user-action-seach-group">
+        <Paper
+          component="form"
+          sx={{
+            p: "2px 4px",
+            display: "flex",
+            alignItems: "center",
+            borderRadius: "40px",
+            boxShadow: "unset",
+            backgroundColor: "#f0f2f6",
+          }}
+        >
+          <IconButton sx={{ p: "10px" }} aria-label="menu">
+            <i class="bx bx-search"></i>
+          </IconButton>
+          <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Seaching group...." />
+        </Paper>
+      </div>
+      <div className="group-wapper">
+        {rooms.map((room) => (
+          <GroupItem
+            id={room.id}
+            key={room.id}
+            imgUrl={room.imgUrl}
+            name={room.name}
+            decription={room.decription}
+            members={room.members}
+          />
+        ))}
+      </div>
     </div>
   );
 };

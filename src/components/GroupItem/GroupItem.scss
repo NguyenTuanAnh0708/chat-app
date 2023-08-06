@@ -1,0 +1,33 @@
+@use "../../scss/" as *;
+.group-item {
+  @include flex(row, center, unset);
+  height: 70px;
+  &:hover {
+    background-color: #f0f2f6;
+  }
+  padding: 8px;
+  cursor: pointer;
+}
+
+.group-info {
+  margin-left: 10px;
+  font-weight: lighter;
+  .group-info-wapper {
+    @include flex(row, center, space-between);
+    .group-info-name {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+  }
+  .group-info-decription {
+    font-size: 12px;
+    width: 80vw;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+a {
+  text-decoration: none;
+  color: black;
+}

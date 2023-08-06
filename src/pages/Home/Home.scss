@@ -1,9 +1,15 @@
 @use "../../scss" as *;
 .home-wapper {
-  margin: 10px 10px;
+  margin: 0px 10px;
+  z-index: 9999;
+  height: 100vh;
+  overflow: hidden;
   .user-action-chat {
     position: fixed;
-    width: 95vw;
+    padding: 10px;
+    background-color: white;
+    z-index: 10;
+    width: 100vw;
     @include flex(row, center, space-between);
     display: flex;
     .left,
@@ -15,15 +21,23 @@
       }
     }
   }
+  .group-wapper {
+    @include flex(column, center, unset);
+    height: 87vh;
+    gap: 10px;
+    overflow-y: scroll;
+  }
 }
 .sideBar-wapper {
   margin: 20px 10px;
   height: 100%;
   @include flex(column, center, space-between);
-  .user-info {
-    @include flex(row, center, center);
-    p {
-      margin-left: 5px;
-    }
+  .wapper-user {
+    @include flex(column, center, center);
+    gap: 40px;
   }
+}
+.user-action-seach-group {
+  padding-top: 60px;
+  padding-bottom: 10px;
 }
